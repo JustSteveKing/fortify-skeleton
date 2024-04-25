@@ -14,5 +14,7 @@
 <body class="h-full antialiased font-sans text-slate-900 dark:text-slate-50">
     {{ $slot }}
     <livewire:scripts />
+
+    @stack('scripts')
 </body>
 </html>

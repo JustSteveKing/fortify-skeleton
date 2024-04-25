@@ -19,6 +19,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string $email
  * @property string $password
  * @property null|string $remember_token
+ * @property null|string $avatar
  * @property null|string $two_factor_secret
  * @property null|string $two_factor_recovery_codes
  * @property null|CarbonInterface $two_factor_confirmed_at
@@ -41,6 +42,7 @@ final class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'remember_token',
+        'avatar',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
@@ -54,6 +56,18 @@ final class User extends Authenticatable implements MustVerifyEmail
         'two_factor_secret',
         'two_factor_recovery_codes',
     ];
+
+    public function image(): string
+    {
+        return $this->avatar ?? $this->defaultAvatar();
+    }
+
+    protected function defaultAvatar(): string
+    {
+        $name = trim(collect(explode(' ', $this->name))->map(fn ($segment) => mb_substr($segment, 0, 1))->join(' '));
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=7F9CF5&background=EBF4FF';
+    }
 
     /** @return array<string,string> */
     protected function casts(): array

@@ -10,6 +10,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 /**
@@ -48,7 +49,15 @@ final class LoginForm extends Component implements HasForms
 
     public function submit(): void
     {
-        //
+        if ( ! auth()->attempt($this->form->getState(), true)) {
+            throw ValidationException::withMessages([
+                'email' => 'Invalid credentials.',
+            ]);
+        }
+
+        $this->redirect(
+            url: route('pages:home'),
+        );
     }
 
     public function render(Factory $factory): View

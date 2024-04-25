@@ -23,6 +23,7 @@ final class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'avatar' => $this->faker->imageUrl(),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
