@@ -1,4 +1,4 @@
-<x-app class="Home Page">
+<x-app title="Profile Settings">
     <x-ui.container class="py-12">
         Test
     </x-ui.container>
