@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\CarbonInterface;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
  * @property string $id
@@ -25,12 +27,13 @@ use Illuminate\Notifications\Notifiable;
  * @property null|CarbonInterface $updated_at
  * @property null|CarbonInterface $deleted_at
  */
-final class User extends Authenticatable
+final class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
     use HasUuids;
     use Notifiable;
     use SoftDeletes;
+    use TwoFactorAuthenticatable;
 
     /** @var array<int,string> */
     protected $fillable = [
