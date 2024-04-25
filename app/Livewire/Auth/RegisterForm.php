@@ -8,8 +8,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Livewire\Component;
 
 /**
@@ -52,9 +54,17 @@ final class RegisterForm extends Component implements HasForms
         );
     }
 
-    public function submit(): void
+    public function submit(CreatesNewUsers $action, AuthManager $auth): void
     {
-        //
+        $auth->login(
+            user: $action->create(
+                input: $this->form->getState(),
+            ),
+        );
+
+        $this->redirect(
+            url: route('pages:home'),
+        );
     }
 
     public function render(Factory $factory): View
