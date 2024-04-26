@@ -3,7 +3,7 @@
 <x-app title="{{ $title }}">
     <x-ui.container>
         <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-            <aside class="px-2 py-6 sm:px-6 lg:col-span-3 lg:px-0 lg:py-0">
+            <aside class="px-2 py-12 sm:px-6 lg:col-span-3 lg:px-0 lg:py-12">
                 <nav class="space-y-1">
                     <a
                         wire:navigate
@@ -52,7 +52,7 @@
                 </nav>
             </aside>
 
-            <div {!! $attributes->merge(['class' => 'space-y-6 sm:px-6 lg:col-span-9 lg:px-0']) !!}>
+            <div {!! $attributes->merge(['class' => 'space-y-6 sm:px-6 lg:col-span-9 lg:px-0 py-12']) !!}>
                 {{ $slot }}
             </div>
         </div>

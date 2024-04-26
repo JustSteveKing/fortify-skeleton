@@ -26,7 +26,7 @@ trait ConfirmsPasswords
     /**
      * The ID of the operation being confirmed.
      */
-    public null|string $confirmableId = null;
+    public ?string $confirmableId = null;
 
     /**
      * The user's password.
@@ -85,7 +85,7 @@ trait ConfirmsPasswords
     /**
      * Ensure that the user's password has been recently confirmed.
      */
-    protected function ensurePasswordIsConfirmed(null|int $maximumSecondsSinceConfirmation = null): void
+    protected function ensurePasswordIsConfirmed(?int $maximumSecondsSinceConfirmation = null): void
     {
         $maximumSecondsSinceConfirmation = $maximumSecondsSinceConfirmation ?: config('auth.password_timeout', 900);
 
@@ -97,7 +97,7 @@ trait ConfirmsPasswords
     /**
      * Determine if the user's password has been recently confirmed.
      */
-    protected function passwordIsConfirmed(null|int $maximumSecondsSinceConfirmation = null): bool
+    protected function passwordIsConfirmed(?int $maximumSecondsSinceConfirmation = null): bool
     {
         $maximumSecondsSinceConfirmation = $maximumSecondsSinceConfirmation ?: config('auth.password_timeout', 900);
 

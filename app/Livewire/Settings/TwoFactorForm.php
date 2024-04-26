@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace App\Livewire\Settings;
 
 use App\Livewire\Concerns\ConfirmsPasswords;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,13 +17,9 @@ use Laravel\Fortify\Features;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-/**
- * @property Form $form
- */
-final class TwoFactorForm extends Component implements HasForms
+final class TwoFactorForm extends Component
 {
     use ConfirmsPasswords;
-    use InteractsWithForms;
 
     public bool $showingQrCode = false;
 
@@ -36,22 +29,11 @@ final class TwoFactorForm extends Component implements HasForms
 
     public null|string $code = null;
 
-    public array $data = [];
-
     public function mount(): void
     {
         if (null === Auth::user()?->two_factor_confirmed_at && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm')) {
             app(DisableTwoFactorAuthentication::class)(Auth::user());
         }
-
-        $this->form->fill();
-    }
-
-    public function form(Form $form): Form
-    {
-        return $form->schema([])->statePath(
-            path: 'data',
-        );
     }
 
     public function enableTwoFactorAuthentication(EnableTwoFactorAuthentication $enable): void
@@ -60,7 +42,7 @@ final class TwoFactorForm extends Component implements HasForms
             $this->ensurePasswordIsConfirmed();
         }
 
-        $enable(Auth::user());
+        $enable($this->user());
 
         $this->showingQrCode = true;
 
@@ -77,7 +59,7 @@ final class TwoFactorForm extends Component implements HasForms
             $this->ensurePasswordIsConfirmed();
         }
 
-        $confirm(Auth::user(), $this->code);
+        $confirm($this->user(), $this->code);
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
@@ -99,7 +81,7 @@ final class TwoFactorForm extends Component implements HasForms
             $this->ensurePasswordIsConfirmed();
         }
 
-        $generate(Auth::user());
+        $generate($this->user());
 
         $this->showingRecoveryCodes = true;
     }
@@ -110,7 +92,7 @@ final class TwoFactorForm extends Component implements HasForms
             $this->ensurePasswordIsConfirmed();
         }
 
-        $disable(Auth::user());
+        $disable($this->user());
 
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
@@ -118,7 +100,7 @@ final class TwoFactorForm extends Component implements HasForms
     }
 
     #[Computed]
-    public function user(): null|Authenticatable
+    public function user(): ?Authenticatable
     {
         return Auth::user();
     }
@@ -126,7 +108,7 @@ final class TwoFactorForm extends Component implements HasForms
     #[Computed]
     public function enabled(): bool
     {
-        return ! empty($this->user->two_factor_secret);
+        return ! empty($this->user()->two_factor_secret);
     }
 
     public function render(Factory $factory): View
