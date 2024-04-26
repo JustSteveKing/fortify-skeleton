@@ -19,7 +19,7 @@
 </span>
 
 @once
-    <x-dialog-modal wire:model.live="confirmingPassword">
+    <x-ui.dialog-modal wire:model.live="confirmingPassword">
         <x-slot name="title">
             {{ $title }}
         </x-slot>
@@ -51,5 +51,5 @@
                 {{ $button }}
             </x-ui.button>
         </x-slot>
-    </x-dialog-modal>
+    </x-ui.dialog-modal>
 @endonce

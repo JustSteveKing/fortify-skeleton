@@ -77,44 +77,44 @@
 
     <div class="mt-5">
         @if (! $this->enabled)
-            <x-confirms-password wire:then="enableTwoFactorAuthentication">
+            <x-features.confirms-password wire:then="enableTwoFactorAuthentication">
                 <x-ui.button type="button" wire:loading.attr="disabled">
                     {{ __('Enable') }}
                 </x-ui.button>
-            </x-confirms-password>
+            </x-features.confirms-password>
         @else
             @if ($showingRecoveryCodes)
-                <x-confirms-password wire:then="regenerateRecoveryCodes">
+                <x-features.confirms-password wire:then="regenerateRecoveryCodes">
                     <x-ui.button class="me-3">
                         {{ __('Regenerate Recovery Codes') }}
                     </x-ui.button>
-                </x-confirms-password>
+                </x-features.confirms-password>
             @elseif ($showingConfirmation)
-                <x-confirms-password wire:then="confirmTwoFactorAuthentication">
+                <x-features.confirms-password wire:then="confirmTwoFactorAuthentication">
                     <x-ui.button type="button" class="me-3" wire:loading.attr="disabled">
                         {{ __('Confirm') }}
                     </x-ui.button>
-                </x-confirms-password>
+                </x-features.confirms-password>
             @else
-                <x-confirms-password wire:then="showRecoveryCodes">
+                <x-features.confirms-password wire:then="showRecoveryCodes">
                     <x-ui.button class="me-3">
                         {{ __('Show Recovery Codes') }}
                     </x-ui.button>
-                </x-confirms-password>
+                </x-features.confirms-password>
             @endif
 
             @if ($showingConfirmation)
-                <x-confirms-password wire:then="disableTwoFactorAuthentication">
+                <x-features.confirms-password wire:then="disableTwoFactorAuthentication">
                     <x-ui.button wire:loading.attr="disabled">
                         {{ __('Cancel') }}
                     </x-ui.button>
-                </x-confirms-password>
+                </x-features.confirms-password>
             @else
-                <x-confirms-password wire:then="disableTwoFactorAuthentication">
+                <x-features.confirms-password wire:then="disableTwoFactorAuthentication">
                     <x-ui.button wire:loading.attr="disabled">
                         {{ __('Disable') }}
                     </x-ui.button>
-                </x-confirms-password>
+                </x-features.confirms-password>
             @endif
 
         @endif

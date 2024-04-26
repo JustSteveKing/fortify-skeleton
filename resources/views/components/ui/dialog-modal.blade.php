@@ -3,7 +3,7 @@
     'maxWidth' => null
 ])
 
-<x-modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
+<x-ui.modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
     <div class="px-6 py-4">
         <div class="text-lg font-medium">
             {{ $title }}
@@ -17,4 +17,4 @@
     <div class="flex flex-row justify-end px-6 py-4 bg-slate-50 dark:bg-slate-900 text-end">
         {{ $footer }}
     </div>
-</x-modal>
+</x-ui.modal>
