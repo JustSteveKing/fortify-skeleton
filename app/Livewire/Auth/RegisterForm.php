@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Livewire\Auth;
 
+use function event;
+
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -37,7 +40,7 @@ final class RegisterForm extends Component implements HasForms
                 ->required()
                 ->string()
                 ->maxLength(255),
-            TextInput::make('name')
+            TextInput::make('email')
                 ->label('Email Address')
                 ->placeholder('jon.snow@thewall.dev')
                 ->required()
@@ -48,18 +51,30 @@ final class RegisterForm extends Component implements HasForms
                 ->placeholder('super-secret-password')
                 ->required()
                 ->password()
+                ->revealable()
+                ->maxLength(255),
+            TextInput::make('password_confirmation')
+                ->label('Password Confirmation')
+                ->placeholder('super-secret-password')
+                ->required()
+                ->password()
+                ->revealable()
                 ->maxLength(255),
         ])->statePath(
-            path: 'data,'
+            path: 'data'
         );
     }
 
     public function submit(CreatesNewUsers $action, AuthManager $auth): void
     {
+        $user = $action->create(
+            input: $this->form->getState(),
+        );
+
+        event(new Registered($user));
+
         $auth->login(
-            user: $action->create(
-                input: $this->form->getState(),
-            ),
+            user: $user,
         );
 
         $this->redirect(

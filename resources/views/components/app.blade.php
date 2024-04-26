@@ -1,7 +1,7 @@
 @props(['title' => config('app.name')])
 
 <x-page title="{{ $title }}">
-    <div x-data="{ open: false }" @keydown.window.escape="open = false">
+    <div class="h-full" x-data="{ open: false }" @keydown.window.escape="open = false">
         <div x-show="open" class="relative z-50 lg:hidden" x-ref="dialog" aria-modal="true" x-cloak>
             <div x-show="open" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-slate-50/80 dark:bg-slate-900/80" x-cloak></div>
             <div class="fixed inset-0 flex">
@@ -12,7 +12,7 @@
                             <x-icons.close class="h-6 w-6" />
                         </button>
                     </div>
-                    <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-50 dark:bg-slate-900 px-6 pb-2 ring-1 ring-slate-900/10 dark:ring-slate-50/10">
+                    <div class="flex grow flex-col gap-y-5 overflow-y-hidden bg-slate-50 dark:bg-slate-900 px-6 pb-2 ring-1 ring-slate-900/10 dark:ring-slate-50/10">
                         <div class="flex h-16 shrink-0 items-center">
                             <x-icons.code class="h-8 w-auto" />
                         </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-slate-50 dark:lg:bg-slate-900 lg:pb-4 border-r border-slate-200 dark:border-slate-950">
+        <div class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-hidden lg:bg-slate-50 dark:lg:bg-slate-900 lg:pb-4 border-r border-slate-200 dark:border-slate-950">
             <div class="flex h-16 shrink-0 items-center justify-center">
                 <x-icons.code class="h-8 w-auto" />
             </div>

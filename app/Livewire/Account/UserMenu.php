@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 final class UserMenu extends Component
@@ -19,6 +20,12 @@ final class UserMenu extends Component
         return User::query()->with([])->find(
             id: auth()->id(),
         );
+    }
+
+    #[On('profile-updated')]
+    public function refresh(): void
+    {
+        $this->reset();
     }
 
     public function logout(): void

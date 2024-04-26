@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Integrations\Unavatar;
 
+use Illuminate\Support\Facades\Http;
+
 final class Unavatar
 {
     public function __construct(

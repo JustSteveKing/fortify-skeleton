@@ -1,5 +1,5 @@
-<x-app title="Profile Settings">
-    <x-ui.container class="py-12">
-        Test
-    </x-ui.container>
-</x-app>
+<x-settings-screen title="Profile Settings" class="space-y-12">
+    <section id="profile-settings" aria-labelledby="profile-settings">
+        <livewire:settings.profile-form />
+    </section>
+</x-settings-screen>
