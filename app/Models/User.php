@@ -6,8 +6,10 @@ namespace App\Models;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,6 +29,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
  * @property null|CarbonInterface $deleted_at
+ * @property Collection<Account> $accounts
+ * @property Collection<Member> $memberships
  */
 final class User extends Authenticatable implements MustVerifyEmail
 {
@@ -56,6 +60,24 @@ final class User extends Authenticatable implements MustVerifyEmail
         'two_factor_secret',
         'two_factor_recovery_codes',
     ];
+
+    /** @return HasMany */
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(
+            related: Account::class,
+            foreignKey: 'user_id',
+        );
+    }
+
+    /** @return HasMany */
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(
+            related: Member::class,
+            foreignKey: 'user_id',
+        );
+    }
 
     public function image(): string
     {

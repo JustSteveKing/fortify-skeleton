@@ -17,7 +17,9 @@ final class UserMenu extends Component
     #[Computed]
     public function user(): Model|User
     {
-        return User::query()->with([])->find(
+        return User::query()->with([
+            'memberships.account',
+        ])->find(
             id: auth()->id(),
         );
     }
