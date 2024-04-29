@@ -33,7 +33,6 @@ final class Member extends Model
         'user_id',
     ];
 
-    /** @return BelongsTo */
     public function account(): BelongsTo
     {
         return $this->belongsTo(
@@ -42,13 +41,17 @@ final class Member extends Model
         );
     }
 
-    /** @return BelongsTo */
     public function user(): BelongsTo
     {
         return $this->belongsTo(
             related: User::class,
             foreignKey: 'user_id',
         );
+    }
+
+    public function isAdmin(): bool
+    {
+        return Role::Admin === $this->role;
     }
 
     /** @return array<string,class-string> */

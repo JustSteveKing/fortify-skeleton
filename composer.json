@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "filament/forms": "^3.2.71",
+        "filament/tables": "^3.2",
         "laravel/fortify": "^1.21.2",
         "laravel/framework": "^11.5",
         "laravel/tinker": "^2.9",

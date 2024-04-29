@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <main>
+            <main id="main-content" aria-labelledby="main-content">
                 {{ $slot }}
             </main>
         </div>
